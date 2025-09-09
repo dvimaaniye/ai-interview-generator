@@ -1,0 +1,25 @@
+meta {
+  name: Generate Questions
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{baseUrl}}/generate-interview
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "experienceLevel": "senior",
+    "technicalLanguages": "JavaScript, Bash",
+    "numOfQuestions": 3,
+    "resumeText": "Projects\nDirectory Organizer (dorg) \t\nBuilt a CLI utility in C++17  to declutter directories by automatically organizing files based on their extensions\nAdded case-insensitive matching for file extensions (e.g., .jpg = .JPG when enabled)\nCreated a --dry-run mode to simulate changes without modifying the filesystem\nAdded YAML config support to let users customize file organization rules\nEnsured safety: symlinks and directories are always excluded from being moved\nWrote a custom minimal logging system with --quiet, --verbose, and default info logging\nBuilt a small argument parser, supporting both short and long flags\nKept user in control: every action can be previewed, skipped, or forced\nAdded a one-liner get-config command to dump the default config format\nImproved overall speed by 40% by switching from extension-based matching to Trie based suffix matching\n\nCA Firm Website\t\nDeveloped a website using SvelteKit and TailwindCSS, enhancing their online presence\nUtilized multi-stage building and Docker for containerization\nConfigured an Nginx reverse proxy to redirect the server requests to the docker container\nSet up auto-renewing SSL certificates, ensuring secure connections at no cost\nProvisioned a shared Linux server on Kamatera Cloud for reliable hosting\nIntegrated NodeMailer.js for inquiry emails from the Contact page\n\nPMS API (ongoing)\t\nBuilt a Project Management System API using NestJS, TypeScript, Prisma, and MySQL\nAdded user auth with JWT and role-based access control\nCreated endpoints for projects, tasks, orgs, and members\nUsed Redis and BullMQ for background jobs\nUsed Docker to run Node, MySQL, and Redis in separate containers\nDefined DB schema with Prisma to support users, tasks, and roles\n\nSkills\n\nLanguages: JavaScript, TypeScript, Python, C++\nLibraries: React, Redux, Svelte\nFrameworks: Next, Nest, Express, SvelteKit\nDatabases: PostgreSQL, MongoDB\nTools: Git, Docker\n\nCertificates\nFront-end Development Libraries - freeCodeCamp                                              \nResponsive Web Design - freeCodeCamp \n\nAbout \nI am an enthusiastic Computer Science student with a strong grasp of software engineering, experienced in building and deploying scalable web applications using modern frameworks and tools. Passionate about problem-solving and constantly exploring new technologies. With a solid foundation in databases, containerization, and cloud deployment, I thrive in dynamic environments where I can learn, adapt, and create impactful solutions.",
+    "shouldGenerateAnswer": true
+  }
+}
+
+settings {
+  encodeUrl: true
+}
