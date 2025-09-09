@@ -1,19 +1,6 @@
 import { z } from 'zod';
 
-export const experienceLevels = [
-	{
-		label: 'Fresher',
-		value: 'fresher',
-	},
-	{
-		label: 'Mid-Level',
-		value: 'midLevel',
-	},
-	{
-		label: 'Senior',
-		value: 'senior',
-	},
-] as const;
+import { experienceLevels } from '@/constants';
 
 export const ExperienceLevelSchema = z.enum(
 	experienceLevels.map((level) => level.value),
@@ -39,7 +26,7 @@ export const ResumeSchema = z
 	.min(100, { error: 'More data is needed' })
 	.max(5000, { error: (iss) => `Max ${iss.maximum} characters allowed` });
 
-export const formSchema = z.object({
+export const formSchema = z.strictObject({
 	experienceLevel: ExperienceLevelSchema,
 	technicalLanguages: TechnicalLanguagesSchema,
 	numOfQuestions: NumOfQuestionsSchema,
@@ -48,9 +35,3 @@ export const formSchema = z.object({
 });
 
 export type FormData = z.infer<typeof formSchema>;
-
-export const defaultFormValues: Partial<FormData> = {
-	experienceLevel: 'fresher',
-	numOfQuestions: 1,
-	shouldGenerateAnswer: true,
-};

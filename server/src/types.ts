@@ -39,7 +39,7 @@ export const ResumeSchema = z
 	.min(100, { error: 'More data is needed' })
 	.max(5000, { error: (iss) => `Max ${iss.maximum} characters allowed` });
 
-export const formSchema = z.object({
+export const formSchema = z.strictObject({
 	experienceLevel: ExperienceLevelSchema,
 	technicalLanguages: TechnicalLanguagesSchema,
 	numOfQuestions: NumOfQuestionsSchema,

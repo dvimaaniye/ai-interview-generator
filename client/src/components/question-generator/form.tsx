@@ -3,6 +3,7 @@
 import { Button } from '@/components/ui/button';
 import { Form } from '@/components/ui/form';
 import { useQuestionGeneratorForm } from '@/hooks/useQuestionGeneratorForm';
+import type { ResultsData } from '@/types/form-response';
 
 import {
 	ExperienceLevelField,
@@ -12,8 +13,16 @@ import {
 	TechnicalLanguagesField,
 } from './form-fields';
 
-export default function QuestionGeneratorForm() {
-	const { form, onSubmit, isSubmitting } = useQuestionGeneratorForm();
+interface QuestionGeneratorFormProps {
+	onSuccess: (data: ResultsData) => void;
+}
+
+export default function QuestionGeneratorForm({
+	onSuccess,
+}: QuestionGeneratorFormProps) {
+	const { form, onSubmit, isSubmitting } = useQuestionGeneratorForm({
+		onSuccess,
+	});
 
 	return (
 		<Form {...form}>

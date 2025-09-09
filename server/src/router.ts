@@ -15,7 +15,7 @@ router.post('/generate-interview', async (req, res) => {
 
 	if (validationResult.error) {
 		console.log('Input validation failed:', validationResult.error);
-		res.status(400).json({
+		res.status(422).json({
 			message: 'Input validation failed',
 			error: z.treeifyError(validationResult.error),
 		});

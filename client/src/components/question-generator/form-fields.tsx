@@ -18,7 +18,8 @@ import {
 	SelectValue,
 } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
-import { type FormData, ResumeSchema, experienceLevels } from '@/types/form';
+import { experienceLevels } from '@/constants';
+import { type FormData, ResumeSchema } from '@/types/form';
 
 interface FormFieldProps {
 	control: Control<FormData>;
