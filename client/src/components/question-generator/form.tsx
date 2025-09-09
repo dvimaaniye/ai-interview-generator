@@ -38,7 +38,7 @@ export default function QuestionGeneratorForm({
 				<GenerateAnswersField control={form.control} />
 
 				<Button type="submit" disabled={isSubmitting}>
-					{isSubmitting ? 'Generating...' : 'Submit'}
+					{isSubmitting ? 'Generating...' : 'Generate Interview'}
 				</Button>
 			</form>
 		</Form>
