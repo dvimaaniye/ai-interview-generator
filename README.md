@@ -8,7 +8,7 @@
 - For client setup: [client/README.md](./client/README.md)
 - For server setup: [server/README.md](./server/README.md)
 
-## ScreenShots
+## Screenshots
 ![form-filled](./screenshot/1.png)
 
 ![form-submitted-and-results](./screenshot/2.png)
