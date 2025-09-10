@@ -1,10 +1,8 @@
 import { Type } from '@google/genai';
 
+import { model, systemPrompt } from './constants.js';
 import { gemini } from './gemini.js';
 import type { GenerateInterviewDto } from './types.js';
-
-const systemPrompt =
-	'You will only generate technical interview questions and optionally answers (only when asked to) based on the user data given to you. Your response MUST be in raw JSON format. DO NOT use any markdown, backticks, code block fences, or any other formatting whatsoever. Ensure that the generated questions and answers are in plain text, there must NOT be any markdown.';
 
 export function makePrompt(data: GenerateInterviewDto) {
 	return JSON.stringify(data);
@@ -12,7 +10,7 @@ export function makePrompt(data: GenerateInterviewDto) {
 
 export function generateInterview(prompt: string) {
 	return gemini.models.generateContent({
-		model: 'gemini-2.5-flash',
+		model: model,
 		contents: prompt,
 		config: {
 			thinkingConfig: {
