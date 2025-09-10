@@ -1,5 +1,8 @@
 # AI Interview Generator
 
+## Demo Video
+[![thumbnail](https://img.youtube.com/vi/PytVYCvVbV8/0.jpg)](https://www.youtube.com/watch?v=PytVYCvVbV8)
+
 ## Tech Stack
 - The frontend (`client/`) is a Vite + React + TypeScript project
 - The backend (`server/`) is a Node + Express + TypeScript project
