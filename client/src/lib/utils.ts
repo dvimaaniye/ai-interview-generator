@@ -18,3 +18,27 @@ export const formatResultItemAsText = (item: ResultsData[number]) => {
 	}
 	return text;
 };
+
+export const copyToClipboard = async (text: string) => {
+	try {
+		await navigator.clipboard.writeText(text);
+		return null;
+	} catch (error) {
+		return error;
+	}
+};
+
+export const downloadAsFile = (text: string) => {
+	const blob = new Blob([text], { type: 'text/plain' });
+	const url = URL.createObjectURL(blob);
+
+	const link = document.createElement('a');
+	link.href = url;
+	link.hidden = true;
+	link.download = `interview-questions-${new Date().toISOString()}.txt`;
+	document.body.appendChild(link);
+	link.click();
+	document.body.removeChild(link);
+
+	URL.revokeObjectURL(url);
+};

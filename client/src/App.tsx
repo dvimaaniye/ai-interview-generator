@@ -10,15 +10,12 @@ function App() {
 	const [results, setResults] = useState<ResultsData>([]);
 	const resultsRef = useRef<HTMLDivElement | null>(null);
 
-	const handleFormSuccess = useCallback(
-		(data: ResultsData) => {
-			setResults(data);
-			setTimeout(() => {
-				resultsRef.current?.scrollIntoView({ behavior: 'smooth' });
-			}, 100);
-		},
-		[resultsRef],
-	);
+	const handleFormSuccess = useCallback((data: ResultsData) => {
+		setResults(data);
+		setTimeout(() => {
+			resultsRef.current?.scrollIntoView({ behavior: 'smooth' });
+		}, 100);
+	}, []);
 
 	return (
 		<main className="container max-w-3xl mx-auto px-4 py-8">

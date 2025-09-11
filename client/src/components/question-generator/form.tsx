@@ -1,5 +1,7 @@
 'use client';
 
+import { memo } from 'react';
+
 import { Button } from '@/components/ui/button';
 import { Form } from '@/components/ui/form';
 import { useQuestionGeneratorForm } from '@/hooks/useQuestionGeneratorForm';
@@ -17,7 +19,7 @@ interface QuestionGeneratorFormProps {
 	onSuccess: (data: ResultsData) => void;
 }
 
-export default function QuestionGeneratorForm({
+export function QuestionGeneratorForm({
 	onSuccess,
 }: QuestionGeneratorFormProps) {
 	const { form, onSubmit, isSubmitting } = useQuestionGeneratorForm({
@@ -44,3 +46,5 @@ export default function QuestionGeneratorForm({
 		</Form>
 	);
 }
+
+export default memo(QuestionGeneratorForm);
