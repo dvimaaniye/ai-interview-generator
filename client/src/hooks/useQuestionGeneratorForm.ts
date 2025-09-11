@@ -56,15 +56,24 @@ export function useQuestionGeneratorForm({
 					const errorData = err.response.data as ValidationErrorResponse;
 					const fieldErrors = errorData.error.properties;
 
-					Object.entries(fieldErrors).forEach(([field, errors]) => {
-						if (errors.errors && errors.errors.length > 0) {
-							form.setError(field as keyof FormData, {
-								type: 'server',
-								message: errors.errors[0],
-							});
-						}
-					});
-					toast.error(errorData.message || 'Please correct the form errors.');
+					if (!fieldErrors || !fieldErrors.length) {
+						console.error(errorData.message || 'Unknown form error occurred');
+						toast.error(errorData.message || 'Unknown form error occurred');
+					} else {
+						Object.entries(fieldErrors).forEach(([field, errors]) => {
+							if (errors.errors && errors.errors.length > 0) {
+								form.setError(field as keyof FormData, {
+									type: 'server',
+									message: errors.errors[0],
+								});
+							}
+						});
+
+						console.error(
+							errorData.message || 'Please correct the form errors.',
+						);
+						toast.error(errorData.message || 'Please correct the form errors.');
+					}
 				} else {
 					console.error('Unknown error from server: ', err);
 					toast.error('Server error occurred');
