@@ -1,3 +1,10 @@
+import {
+	Tooltip,
+	TooltipContent,
+	TooltipProvider,
+	TooltipTrigger,
+} from '@radix-ui/react-tooltip';
+import { Info } from 'lucide-react';
 import { type Control } from 'react-hook-form';
 
 import { Checkbox } from '@/components/ui/checkbox';
@@ -62,7 +69,22 @@ export function TechnicalLanguagesField({ control }: FormFieldProps) {
 			name="technicalLanguages"
 			render={({ field }) => (
 				<FormItem>
-					<FormLabel>Technical Languages</FormLabel>
+					<div className="flex items-center gap-2">
+						<FormLabel>Technical Languages</FormLabel>
+						<TooltipProvider>
+							<Tooltip>
+								<TooltipTrigger asChild>
+									<Info className="h-4 w-4 text-muted-foreground cursor-help" />
+								</TooltipTrigger>
+								<TooltipContent side="right">
+									<p className="max-w-xs text-sm text-black/40 bg-muted/80 rounded-md p-2 shadow-md border">
+										List programming languages you're proficient in, separated
+										by commas
+									</p>
+								</TooltipContent>
+							</Tooltip>
+						</TooltipProvider>
+					</div>
 					<FormControl>
 						<Input
 							placeholder="JavaScript, TypeScript, Python etc"
