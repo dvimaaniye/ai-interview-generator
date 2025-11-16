@@ -1,47 +1,24 @@
-import { Type } from '@google/genai';
+import { LanguageModel, generateObject } from 'ai';
+import z from 'zod';
 
-import { model, systemPrompt } from './constants.js';
-import { gemini } from './gemini.js';
+import { systemPrompt } from './constants.js';
 import type { GenerateInterviewDto } from './types.js';
 
 export function makePrompt(data: GenerateInterviewDto) {
 	return JSON.stringify(data);
 }
 
-export function generateInterview(prompt: string) {
-	return gemini.models.generateContent({
-		model: model,
-		contents: prompt,
-		config: {
-			thinkingConfig: {
-				thinkingBudget: 0, // Disables thinking
-			},
-			responseMimeType: 'application/json',
-			responseSchema: {
-				type: Type.ARRAY,
-				items: {
-					type: Type.OBJECT,
-					properties: {
-						id: {
-							type: Type.INTEGER,
-						},
-						question: {
-							type: Type.STRING,
-						},
-						answer: {
-							type: Type.STRING,
-						},
-					},
-					propertyOrdering: ['id', 'question', 'answer'],
-				},
-			},
-			systemInstruction: {
-				parts: [
-					{
-						text: systemPrompt,
-					},
-				],
-			},
-		},
+export async function generateInterview(model: LanguageModel, prompt: string) {
+	const { object } = await generateObject({
+		model,
+		system: systemPrompt,
+		prompt: prompt,
+		output: 'array',
+		schema: z.object({
+			id: z.number().int(),
+			question: z.string(),
+			answer: z.string(),
+		}),
 	});
+	return object;
 }

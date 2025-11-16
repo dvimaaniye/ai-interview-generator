@@ -1,10 +1,11 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import axios from 'axios';
-import { useCallback, useRef } from 'react';
+import { useCallback, useContext, useRef } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 
 import { defaultFormValues } from '@/constants';
+import { SettingsPopupContext } from '@/contexts';
 import { type FormData, formSchema } from '@/types/form';
 import type {
 	ResultsData,
@@ -28,12 +29,20 @@ export function useQuestionGeneratorForm({
 		defaultValues: defaultFormValues,
 		resolver: zodResolver(formSchema),
 	});
+	const settingsPopupContext = useContext(SettingsPopupContext);
 
 	const onSubmit = useCallback(
 		async (values: FormData) => {
 			if (abortControllerRef.current) {
 				abortControllerRef.current.abort();
 				console.log('Previous request aborted');
+			}
+
+			const apiKey = localStorage.getItem('geminiApiKey');
+			if (!apiKey) {
+				settingsPopupContext?.setIsOpen(true);
+				console.log('Enter a Gemini API key');
+				return;
 			}
 
 			abortControllerRef.current = new AbortController();
@@ -43,15 +52,15 @@ export function useQuestionGeneratorForm({
 					'/generate-interview',
 					values,
 					{
+						headers: { 'X-AI-API-KEY': apiKey },
 						signal: abortControllerRef.current.signal,
 					},
 				);
 
 				onSuccess(response.data);
-				console.log('Response:', response.data);
 				toast.success('Questions generated successfully!');
 				form.reset();
-			} catch (err) {
+			} catch (err: any) {
 				if (axios.isAxiosError(err) && err.response?.status === 422) {
 					const errorData = err.response.data as ValidationErrorResponse;
 					const fieldErrors = errorData.error.properties;
@@ -76,7 +85,7 @@ export function useQuestionGeneratorForm({
 					}
 				} else {
 					console.error('Unknown error from server: ', err);
-					toast.error('Server error occurred');
+					toast.error(err?.response?.data?.message || 'Server error occurred');
 				}
 			} finally {
 				abortControllerRef.current = undefined; // Clear controller after request completion
