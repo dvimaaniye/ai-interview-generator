@@ -25,13 +25,16 @@ export function SettingsPopup() {
 	const form = useForm<SettingsDataType>({
 		defaultValues: {
 			geminiApiKey: localStorage.getItem('geminiApiKey') || '',
+			resetFormAfterSubmit:
+				localStorage.getItem('resetFormAfterSubmit') === 'true' ? true : false,
 		},
 		resolver: zodResolver(SettingsDataSchema),
 	});
 
 	const onSubmit = (values: SettingsDataType) => {
+		popupContext?.setIsOpen(false);
 		for (const [option, value] of Object.entries(values)) {
-			localStorage.setItem(option, value.trim());
+			localStorage.setItem(option, String(value).trim());
 		}
 	};
 
@@ -52,16 +55,16 @@ export function SettingsPopup() {
 				</DialogHeader>
 
 				<Form {...form}>
-					<form onSubmit={form.handleSubmit(onSubmit)}>
-						<Settings control={form.control} />
+					<form onSubmit={form.handleSubmit(onSubmit)} autoComplete="off">
+						<div className="space-y-6">
+							<Settings control={form.control} />
+						</div>
 
 						<DialogFooter className="pt-4">
 							<DialogClose asChild>
 								<Button variant="outline">Cancel</Button>
 							</DialogClose>
-							<DialogClose asChild>
-								<Button type="submit">Save changes</Button>
-							</DialogClose>
+							<Button type="submit">Save changes</Button>
 						</DialogFooter>
 					</form>
 				</Form>

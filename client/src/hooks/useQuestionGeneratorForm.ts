@@ -59,7 +59,9 @@ export function useQuestionGeneratorForm({
 
 				onSuccess(response.data);
 				toast.success('Questions generated successfully!');
-				form.reset();
+				if (localStorage.getItem('resetFormAfterSubmit') === 'true') {
+					form.reset();
+				}
 			} catch (err: any) {
 				if (axios.isAxiosError(err) && err.response?.status === 422) {
 					const errorData = err.response.data as ValidationErrorResponse;
