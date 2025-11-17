@@ -1,6 +1,7 @@
 import { Separator } from '@radix-ui/react-select';
 import { Check, Copy } from 'lucide-react';
 import { memo, useState } from 'react';
+import Markdown from 'react-markdown';
 
 import type { ResultsData } from '@/types/form-response';
 
@@ -46,7 +47,9 @@ export function QuestionCard({ item, onCopy }: QuestionCardProps) {
 					<p className="font-medium text-sm text-muted-foreground mb-2">
 						Question:
 					</p>
-					<p className="text-foreground">{item.question}</p>
+					<div className="text-foreground font-medium [&_code]:font-semibold">
+						<Markdown>{item.question}</Markdown>
+					</div>
 				</div>
 
 				{item.answer && (
@@ -56,7 +59,9 @@ export function QuestionCard({ item, onCopy }: QuestionCardProps) {
 							<p className="font-medium text-sm text-muted-foreground mb-2">
 								Answer:
 							</p>
-							<p className="text-foreground leading-relaxed">{item.answer}</p>
+							<div className="text-foreground/90 leading-relaxed [&_code]:text-foreground">
+								<Markdown>{item.answer}</Markdown>
+							</div>
 						</div>
 					</>
 				)}
