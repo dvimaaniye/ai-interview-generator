@@ -3,10 +3,10 @@ import { Toaster } from 'sonner';
 
 import QuestionGeneratorForm from '@/components/question-generator/form';
 import ResultsDisplay from '@/components/question-generator/result-display';
+import { SettingsPopup } from '@/components/settings/settings-popup';
+import type { ResultsData } from '@/types/form-response';
 
-import { SettingsPopup } from './components/settings/settings-popup';
 import { SettingsPopupContext } from './contexts';
-import type { ResultsData } from './types/form-response';
 
 function App() {
 	const [results, setResults] = useState<ResultsData>([]);
