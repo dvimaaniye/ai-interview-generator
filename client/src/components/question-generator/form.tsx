@@ -16,15 +16,13 @@ import {
 } from './form-fields';
 
 interface QuestionGeneratorFormProps {
-	onSuccess: (data: ResultsData) => void;
+	questionGeneratorForm: ReturnType<typeof useQuestionGeneratorForm>;
 }
 
 export function QuestionGeneratorForm({
-	onSuccess,
+	questionGeneratorForm,
 }: QuestionGeneratorFormProps) {
-	const { form, onSubmit, isSubmitting } = useQuestionGeneratorForm({
-		onSuccess,
-	});
+	const { form, onSubmit, isSubmitting } = questionGeneratorForm;
 
 	return (
 		<Form {...form}>
