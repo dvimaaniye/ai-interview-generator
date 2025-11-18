@@ -59,8 +59,8 @@ function App() {
 							...Array(
 								questionGeneratorForm.form.getValues('numOfQuestions'),
 							).keys(),
-						].map((_) => (
-							<div>
+						].map((idx) => (
+							<div key={idx}>
 								<Skeleton className="bg-transparent p-4 space-y-4 shadow-sm">
 									<Skeleton className="w-1/4 h-4" />
 
