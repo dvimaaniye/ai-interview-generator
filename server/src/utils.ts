@@ -17,7 +17,7 @@ export async function generateInterview(model: LanguageModel, prompt: string) {
 		schema: z.object({
 			id: z.number().int(),
 			question: z.string(),
-			answer: z.string(),
+			answer: z.string().optional(),
 		}),
 	});
 	return object;

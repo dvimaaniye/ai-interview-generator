@@ -1,7 +1,7 @@
 export interface QuestionResult {
 	id: number;
 	question: string;
-	answer?: string; // Optional based on shouldGenerateAnswer
+	answer?: string | undefined; // Optional based on shouldGenerateAnswer
 }
 
 export type ResultsData = QuestionResult[];
